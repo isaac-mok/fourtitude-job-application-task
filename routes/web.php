@@ -21,4 +21,3 @@ Route::resource('products', ProductController::class)
         'show',
         'destroy'
     ]);
-// require(__DIR__.'/product.php');
