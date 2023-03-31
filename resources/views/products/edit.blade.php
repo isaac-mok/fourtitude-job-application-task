@@ -1,4 +1,9 @@
 <x-layouts.product title="Edit Product">
+    @if (session('status'))
+        <x-banner-success class="mt-2">
+            {{ session('status') }}
+        </x-banner-success>
+    @endif
     <form action="{{ route('products.update', ['product' => $product]) }}" method="POST" class="border rounded my-2 px-4 py-4">
         @csrf
         @method('PUT')

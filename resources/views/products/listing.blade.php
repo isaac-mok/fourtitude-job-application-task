@@ -1,4 +1,10 @@
 <x-layouts.product title="Products">
+    @if (session('status'))
+        <x-banner-success class="mt-2">
+            {{ session('status') }}
+        </x-banner-success>
+    @endif
+
     <div class="overflow-auto">
         <table class="border border-black my-4 min-w-full">
             <thead>

@@ -40,7 +40,7 @@ class ProductController extends Controller
 
         return redirect()
             ->route('products.index')
-            ->with('status', 'success');
+            ->with('status', 'Product successfully saved.');
     }
 
     /**
@@ -69,7 +69,7 @@ class ProductController extends Controller
         $product->update($validated);
 
         return back()
-            ->with('status', 'success');
+            ->with('status', 'Product successfully edited.');
     }
 
     /**
