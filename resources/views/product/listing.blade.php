@@ -1,6 +1,6 @@
 <x-layouts.product title="Products">
     <div class="overflow-auto">
-        <table class="border border-black my-4">
+        <table class="border border-black my-4 min-w-full">
             <thead>
                 <tr>
                     <x-th>ID</x-th>
@@ -13,7 +13,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($products as $product)
+                @forelse ($products as $product)
                 <tr>
                     <x-td>{{ $product->id }}</x-td>
                     <x-td>{{ $product->code }}</x-td>
@@ -23,7 +23,10 @@
                     <x-td>{{ $product->type }}</x-td>
                     <x-td>{{ $product->description }}</x-td>
                 </tr>
-                @endforeach
+                @empty
+                <tr>
+                    <x-td colspan="7">No products.</x-td>
+                @endforelse
             </tbody>
         </table>
     </div>

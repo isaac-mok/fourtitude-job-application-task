@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CreateProductController;
 use App\Http\Controllers\ProductListingController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,4 +18,6 @@ use Illuminate\Support\Facades\Route;
 Route::redirect('/', '/products');
 Route::prefix('/products')->name('product.')->group(function () {
     Route::get('/', ProductListingController::class)->name('listing');
+    Route::view('/create', 'product.create')->name('create');
+    Route::post('/create', CreateProductController::class)->name('postCreate');
 });

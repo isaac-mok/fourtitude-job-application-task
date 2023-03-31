@@ -1,5 +1,5 @@
 <x-layouts.app>
-    Products >> <a href="{{ route('product.listing') }}" class="text-blue-600 hover:text-blue-800">Listing</a> || Create
+    Products >> <x-a href="{{ route('product.listing') }}">Listing</x-a> || <x-a href="{{ route('product.create') }}">Create</x-a>
     <h1 class="text-3xl">{{ $title }}</h1>
     {{ $slot }}
 </x-layouts.app>

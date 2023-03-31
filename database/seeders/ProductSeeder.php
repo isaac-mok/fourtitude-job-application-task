@@ -18,8 +18,10 @@ class ProductSeeder extends Seeder
 
         if ($latestId === 0) {
             foreach (static::PRODUCTS as $product) {
+                $id = ++$latestId; // Increment then assign
+                $id = $this->padIdWithZeroes($id);
                 Product::create([
-                    'code' => 'P'.++$latestId,
+                    'code' => "P$id",
                     ...$product
                 ]);
             }
@@ -27,9 +29,14 @@ class ProductSeeder extends Seeder
 
         Product::factory(10)
             ->state(new Sequence(
-                fn (Sequence $sequence) => ['code' => 'P'.$latestId + $sequence->index + 1]
+                fn (Sequence $sequence) => ['code' => 'P'.$this->padIdWithZeroes($latestId + $sequence->index + 1)]
             ))
             ->create();
+    }
+
+    protected function padIdWithZeroes($id)
+    {
+        return str_pad($id, 3, '0', STR_PAD_LEFT);
     }
 
     const PRODUCTS = [
