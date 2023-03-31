@@ -11,12 +11,14 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
+    const ITEMS_PER_PAGE = 5;
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return ProductResource::collection(Product::paginate());
+        return ProductResource::collection(Product::paginate(static::ITEMS_PER_PAGE));
     }
 
     /**

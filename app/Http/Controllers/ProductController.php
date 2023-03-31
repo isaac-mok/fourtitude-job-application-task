@@ -9,14 +9,16 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
+    const ITEMS_PER_PAGE = 5;
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $products = Product::paginate(5)->withQueryString();
+        $products = Product::paginate(static::ITEMS_PER_PAGE)->withQueryString();
 
-        return view('products.listing', [
+        return view('products.index', [
             'products' => $products,
         ]);
     }
@@ -66,7 +68,12 @@ class ProductController extends Controller
     {
         $validated = $request->validated();
 
-        $product->update($validated);
+        $product->update([
+            'brand' => null,
+            'type' => null,
+            'description' => null,
+            ...$validated
+        ]);
 
         return back()
             ->with('status', 'Product successfully edited.');
