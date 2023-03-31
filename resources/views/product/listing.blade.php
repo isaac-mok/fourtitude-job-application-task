@@ -16,7 +16,7 @@
                 @forelse ($products as $product)
                 <tr>
                     <x-td>{{ $product->id }}</x-td>
-                    <x-td>{{ $product->code }}</x-td>
+                    <x-td><x-a href="{{ route('product.edit', ['product' => $product->id]) }}">{{ $product->code }}</x-a></x-td>
                     <x-td>{{ $product->name }}</x-td>
                     <x-td>{{ $product->category }}</x-td>
                     <x-td>{{ $product->brand }}</x-td>
