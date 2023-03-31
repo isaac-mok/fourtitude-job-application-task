@@ -1,11 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
-use App\Http\Resources\ProductResource;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -16,7 +14,19 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return ProductResource::collection(Product::paginate());
+        $products = Product::paginate(5)->withQueryString();
+
+        return view('products.listing', [
+            'products' => $products,
+        ]);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        return view('products.create');
     }
 
     /**
@@ -26,9 +36,11 @@ class ProductController extends Controller
     {
         $validated = $request->validated();
 
-        $product = Product::create($validated);
+        Product::create($validated);
 
-        return response()->json(new ProductResource($product));
+        return redirect()
+            ->route('products.index')
+            ->with('status', 'success');
     }
 
     /**
@@ -36,7 +48,15 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        return new ProductResource($product);
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(Product $product)
+    {
+        return view('products.edit', ['product' => $product]);
     }
 
     /**
@@ -48,7 +68,8 @@ class ProductController extends Controller
 
         $product->update($validated);
 
-        return response()->json(new ProductResource($product));
+        return back()
+            ->with('status', 'success');
     }
 
     /**
@@ -56,8 +77,6 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        $product->delete();
-
-        return response()->json(new ProductResource($product));
+        //
     }
 }

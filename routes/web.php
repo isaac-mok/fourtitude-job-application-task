@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,4 +16,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::redirect('/', '/products');
 
-require(__DIR__.'/product.php');
+Route::resource('products', ProductController::class)
+    ->except([
+        'show',
+        'destroy'
+    ]);
+// require(__DIR__.'/product.php');
